@@ -7,7 +7,8 @@ import time
 
 import numpy as np
 
-import cPickle as pickle
+#import Pickle as pickle
+import _pickle as cPickle
 
 import theano
 import theano.tensor as T
@@ -303,7 +304,7 @@ class BaseLasagneClassifier(BaseEstimator, ClassifierMixin):
 
         tpr = n_tp / n_p
         fpr = n_fp / n_f
-        print  n_fp, n_tp, n_p, n_f
+        print(n_fp, n_tp, n_p, n_f)
         return tpr, fpr
 
 
