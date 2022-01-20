@@ -5,6 +5,9 @@ Created on Wed Jan 19 23:32:09 2022
 
 @author: Javier Alejandro Acevedo Barroso
 """
+import warnings
+warnings.simplefilter("ignore", UserWarning)
+
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -82,7 +85,18 @@ model = deeplens_classifier(learning_rate=0.001,  # Initial learning rate
 
 model.fit(X_train,y_train,X_val,y_val) # Train the model, the validation set is provided for evaluation of the model
 
+#%%
+model.save('deeplens_params.npy')
 
+#%%
+model.eval_purity_completeness(X_test,y_test)
+#%%
+tpr,fpr,th = model.eval_ROC(X_test,y_test)
+plt.title('ROC on Training set')
+plt.plot(fpr,tpr)
+plt.xlabel('FPR'); plt.ylabel('TPR')
+plt.xlim(0,0.3); plt.ylim(0.86,1.)
+plt.grid('on')
 
 
 

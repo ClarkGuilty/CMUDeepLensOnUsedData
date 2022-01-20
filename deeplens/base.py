@@ -8,7 +8,9 @@ import time
 import numpy as np
 
 #import Pickle as pickle
-import _pickle as cPickle
+#import _pickle as cPickle
+import pickle
+
 
 import theano
 import theano.tensor as T
@@ -163,7 +165,7 @@ class BaseLasagneClassifier(BaseEstimator, ClassifierMixin):
                                shuffle=True)
 
             # Loop over batches
-            for b in range(X.shape[0] / self.batch_size):
+            for b in range(X.shape[0] // self.batch_size):
                 xdata, ydata = batches.next()
 
                 # One iteration of training
@@ -199,7 +201,7 @@ class BaseLasagneClassifier(BaseEstimator, ClassifierMixin):
 
         all_params = [params, all_values]
 
-        f = file(filename, 'wb')
+        f = open(filename, 'wb')
         print("saving to " + filename + "...")
         pickle.dump(all_params, f, protocol=pickle.HIGHEST_PROTOCOL)
         f.close()
@@ -209,7 +211,7 @@ class BaseLasagneClassifier(BaseEstimator, ClassifierMixin):
         Load the network parameter from file
         """
         print("loading from " + filename + "...")
-        f = file(filename, 'rb')
+        f = open(filename, 'rb')
         all_params = pickle.load(f)
         f.close()
         p, all_values = all_params
