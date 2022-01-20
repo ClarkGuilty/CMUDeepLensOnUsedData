@@ -142,7 +142,7 @@ class BaseLasagneClassifier(BaseEstimator, ClassifierMixin):
                                      horizontal_flip=True,
                                      vertical_flip=True,
                                      fill_mode='wrap',
-                                     dim_ordering='th')
+                                     data_format="channels_first")
 
         lr = self.learning_rate
 
