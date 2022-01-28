@@ -139,8 +139,8 @@ class BaseLasagneClassifier(BaseEstimator, ClassifierMixin):
         train_err = 0
 
         # Defines a preprocessing step
-        datagen = ImageDataGenerator(rotation_range=90,
-                                     zoom_range=[0.9,1],
+        datagen = ImageDataGenerator(rotation_range=0,
+                                     zoom_range=0,
                                      horizontal_flip=True,
                                      vertical_flip=True,
                                      fill_mode='wrap',
@@ -151,7 +151,7 @@ class BaseLasagneClassifier(BaseEstimator, ClassifierMixin):
         # Loop over training epochs
         for i in range(self.n_epochs):
             print("Starting Epoch : %d"%i)
-            if (Xval is not None) and (yval is not None) and (i % self.val_nepoch == 0) and (i > 0):
+            if (Xval is not None) and (yval is not None) and (i % self.val_nepoch == 0):
                 pur, comp = self.eval_purity_completeness(Xval, yval)
                 print("Iteration : %d -> [Validation] Purity: %f ; Completeness: %f"%(niter, pur, comp))
                 nval = Xval.shape[0]
@@ -200,11 +200,13 @@ class BaseLasagneClassifier(BaseEstimator, ClassifierMixin):
                  self.pos_weight]
 
         all_params = [params, all_values]
-
+        # print(all_values)
         f = open(filename, 'wb')
         print("saving to " + filename + "...")
+        np.savez('model.npz', *lasagne.layers.get_all_param_values(self._network))
         pickle.dump(all_params, f, protocol=pickle.HIGHEST_PROTOCOL)
         f.close()
+        return all_values
 
     def load(self, filename, X,y ):
         """
@@ -215,16 +217,18 @@ class BaseLasagneClassifier(BaseEstimator, ClassifierMixin):
         all_params = pickle.load(f)
         f.close()
         p, all_values = all_params
+        # print(p)
 
         # Extracts parameters
         self.batch_size, self.n_epochs, self.learning_rate, self.pos_weight = p
-
+        print(self._network)
         self._build(X,y)
-
+        
         # Rebuild  the network and set the weights
         lasagne.layers.set_all_param_values(self._network, all_values)
 
         print("Model loaded")
+        return all_values
 
     def predict_proba(self, X):
         """
