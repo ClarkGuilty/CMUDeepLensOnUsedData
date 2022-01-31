@@ -44,8 +44,8 @@ X = np.array(d['image'])[numbers].reshape((-1,1,size,size))
 y = np.array(d['classification'])[numbers].reshape((-1,1))
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
-# X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.15)
-X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.99)
+X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.15)
+# X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.99)
 
 #%%
 X_train = (X_train - np.mean(X_train)) / np.std(X_train)
