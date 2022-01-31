@@ -73,7 +73,7 @@ CFIS_folder_list = np.array(os.listdir(full_path))
 # print(time.time()-old_time)
 
 #%% Actually loading the data.
-no_maximum_folder_iterations = 4
+no_maximum_folder_iterations = 8
 no_folders_per_execution = 586
 # no_folders_per_execution = 4
 

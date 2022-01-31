@@ -151,7 +151,7 @@ class BaseLasagneClassifier(BaseEstimator, ClassifierMixin):
         # Loop over training epochs
         for i in range(self.n_epochs):
             print("Starting Epoch : %d"%i)
-            if (Xval is not None) and (yval is not None) and (i % self.val_nepoch == 0):
+            if (Xval is not None) and (yval is not None) and (i % self.val_nepoch == 0) and (i > 0):
                 pur, comp = self.eval_purity_completeness(Xval, yval)
                 print("Iteration : %d -> [Validation] Purity: %f ; Completeness: %f"%(niter, pur, comp))
                 nval = Xval.shape[0]
