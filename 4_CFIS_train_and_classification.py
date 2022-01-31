@@ -85,7 +85,7 @@ for i in range(4):
     print("heh")
     y_real = model.predict_proba(X_real)
     # y_real = np.random.rand(len(names))
-    df = pd.DataFrame({"name": names, "classification": y_real})
+    df = pd.DataFrame({"name": names, "classification": y_real.reshape(-1)})
     
     print("found",np.sum(y_real > 0.5),"candidates out of", len(y_real), "images.")
     df.to_csv(os.path.join("Classifications","classified_"+str(i)+".csv")) 
