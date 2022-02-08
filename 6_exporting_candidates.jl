@@ -45,11 +45,9 @@ outputs_path = "Outputs"
 candidates_file = "new_candidates.txt"
 ##
 files_to_search = readlines(joinpath(outputs_path,candidates_file))
-# files_to_search = ["PS1_candID176682145962821829_r.fits","PS1_candID176682147071983414_r.fits"]
 ##
 list_of_new_candidates = rdir(joinpath(data_path,initial_path),files_to_search)
 
-# test = ["./Data/CFIS_real/0/IMA/PS1_candID176682144666282963_r.fits", "./Data/CFIS_real/0/IMA/PS1_candID176682145962821829_r.fits", "./Data/CFIS_real/0/IMA/PS1_candID176682147071983414_r.fits", "./Data/CFIS_real/0/IMA/PS1_candID176682150151056059_r.fits", "./Data/CFIS_real/0/IMA/PS1_candID176682150258277187_r.fits", "./Data/CFIS_real/0/IMA/PS1_candID176692145625579229_r.fits", "./Data/CFIS_real/0/IMA/PS1_candID176692146158249558_r.fits", "./Data/CFIS_real/0/IMA/PS1_candID176692148907806348_r.fits", "./Data/CFIS_real/0/IMA/PS1_candID176692151636891958_r.fits", "./Data/CFIS_real/0/IMA/PS1_candID176692152193037852_r.fits", "./Data/CFIS_real/0/IMA/PS1_candID176702144290747060_r.fits", "./Data/CFIS_real/0/IMA/PS1_candID176702146052736203_r.fits", "./Data/CFIS_real/0/IMA/PS1_candID176702147470175417_r.fits", "./Data/CFIS_real/0/IMA/PS1_candID176702148269238525_r.fits"]
 open(joinpath("Outputs","new_candidates_fullPath.txt"), "w") do file
     for name in list_of_new_candidates
         write(file, name*"\n")
